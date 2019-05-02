@@ -1,4 +1,5 @@
-#ifdef _Primera_hpp_
+#ifndef _Primera_hpp_
+#define _Primera_hpp_
 template <typename datatype>
 class BST {
 	private:
