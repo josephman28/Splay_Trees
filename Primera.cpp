@@ -53,22 +53,6 @@ void BST<dataType>::remove(BST<dataType>::BSTNode* &root, dataType key){
 }
 
 template <typename dataType>
-typename BST<dataType>::BSTNode* BST<dataType>::copy(BST<dataType>::BSTNode* root, BST<dataType>::BSTNode* parent){
-
-
-}
-template <typename dataType>
-void BST<dataType>::clear(BST<dataType>::BSTNode* &root){
-  if(root != nullptr){
-    BSTNode *left = root -> left;
-    BSTNode *right = root -> right;
-    delete root;
-    clear(right);
-    clear(left);
-  }
-}
-
-template <typename dataType>
 void BST<dataType>::display(BST<dataType>::BSTNode* root, std::ostream &out) const{
 
 
@@ -91,10 +75,6 @@ BST<dataType>::BST(){
 }
 
 template <typename dataType>
-BST<dataType>::BST(const BST &rhs){
-
-}
-template <typename dataType>
 BST<dataType>::~BST(){
   clear();
 }
@@ -106,12 +86,7 @@ template <typename dataType>
 bool BST<dataType>::empty(void) const{
   return count == 0;
 }
-template <typename dataType>
-void BST<dataType>::clear(void){
-  clear(root);
-  root = nullptr;
-  count = 0;
-}
+
 template <typename dataType>
 bool BST<dataType>::find(dataType key) const{
 
@@ -124,10 +99,5 @@ template <typename dataType>
 void BST<dataType>::display(std::ostream &out) const{
 
 }
-
-
-/*template <typename dataType>
-
-template <typename dataType>*/
 
 #endif //_Primera_hpp_
