@@ -35,3 +35,4 @@ class BST {
 };
 
 #endif //_Primera_hpp_
+//the way to do the insertion of elements was obtained at GeeksforGeeks
