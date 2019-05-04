@@ -48,24 +48,58 @@ typename BST<dataType>::BSTNode* BST<dataType>::predecessor(BST<dataType>::BSTNo
 
 template <typename dataType>
 void BST<dataType>::remove(BST<dataType>::BSTNode* &root, dataType key){
+  if(root==nullptr) return root;
+  else if(key < root -> key) root -> left = remove(root -> left, key);
+  else if(key > root -> key) root -> right = remove(root -> right, key);
 
+  else{
 
+    if(root -> left == nullptr && root -> right == nullptr){
+      delete root;
+      root= nullptr;
+    }
+
+    else if(root -> left == nullptr){
+      BSTNode *aux = root;
+      root = root -> right;
+      delete aux;
+    }
+    else if(root -> right == nullptr){
+      BSTNode *aux = root;
+      root = root -> left;
+      delete aux;
+    }
+    else{
+      BSTNode *aux = min(root -> right);
+      root -> key = aux -> key;
+      root -> right = remove(root -> right,aux->key);
+    }
+  }
+  return root;
 }
 
-template <typename dataType>
+/*template <typename dataType>
 void BST<dataType>::display(BST<dataType>::BSTNode* root, std::ostream &out) const{
 
 
-}
+}*/
 template <typename dataType>
 void BST<dataType>::insert(BST<dataType>::BSTNode* & root, dataType key){
+	if(root==nullptr) return newBSTNode(key);
 
-  
+  else if(key < root -> key) root -> left = insert(root -> left, key);
+  else if(key > root -> key) root -> right = insert(root -> right, key);
 }
 
 template <typename dataType>
 typename BST<dataType>::BSTNode* find(BST<dataType>::BSTNode* root, dataType key){
-
+  if(root==nullptr) return nullptr;
+  else{
+    if(key==root -> key) return root;
+    else if(key<root->key) return find(root -> left, key);
+    else return find(root -> right, key);
+      
+  }
 
 }
 template <typename dataType>
@@ -74,10 +108,10 @@ BST<dataType>::BST(){
   count = 0;
 }
 
-template <typename dataType>
+/*template <typename dataType>
 BST<dataType>::~BST(){
   clear();
-}
+}*/
 template <typename dataType>
 void BST<dataType>::remove(dataType key){
   remove(root,key);
@@ -89,15 +123,17 @@ bool BST<dataType>::empty(void) const{
 
 template <typename dataType>
 bool BST<dataType>::find(dataType key) const{
-
+  if(find(root, key)==nullptr) return false;
+  else return true;
 }
 template <typename dataType>
 void BST<dataType>::insert(dataType key){
-
+  insert(root, key);
+  count ++;
 }
-template <typename dataType>
+/*template <typename dataType>
 void BST<dataType>::display(std::ostream &out) const{
 
-}
+}*/
 
 #endif //_Primera_hpp_
