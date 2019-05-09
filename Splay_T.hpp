@@ -1,5 +1,5 @@
-#ifndef _Primera_hpp_
-#define _Primera_hpp_
+#ifndef _SplayT_hpp_
+#define _SplayT_hpp_
 template <typename datatype>
 class SplayT {
 	private:
