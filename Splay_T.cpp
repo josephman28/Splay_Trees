@@ -1,8 +1,8 @@
 #ifdef _Primera_hpp_
 
 template <typename dataType>
-typename BST<dataType>::BSTNode* BST<dataType>::min(BST<dataType>::BSTNode *root) const{
-  BSTNode *aux = root;
+typename SplayT<dataType>::STNode* SplayT<dataType>::min(SplayT<dataType>::STNode *root) const{
+  STNode *aux = root;
   if(aux!=nullptr){
     while(aux -> left! = nullptr) aux = aux -> left;
   }
@@ -10,15 +10,16 @@ typename BST<dataType>::BSTNode* BST<dataType>::min(BST<dataType>::BSTNode *root
 }
 
 template <typename dataType>
-typename BST<dataType>::BSTNode* BST<dataType>::max(BST<dataType>::BSTNode *root) const{
-  BSTNode *aux = root;
+typename SplayT<dataType>::STNode* SplayT<dataType>::max(SplayT<dataType>::STNode *root) const{
+  STNode *aux = root;
   if(aux!=nullptr){
     while(aux->right != nullptr) aux = aux -> right;
   }
 }
+
 template <typename dataType>
-typename BST<dataType>::BSTNode* BST<dataType>::succesor(BST<dataType>::BSTNode *root) const{
-  BSTNode *aux = root;
+typename SplayT<dataType>::STNode* SplayT<dataType>::succesor(SplayT<dataType>::STNode *root) const{
+  STNode *aux = root;
   if(aux == nullptr) return aux;
 
   else{
@@ -32,8 +33,8 @@ typename BST<dataType>::BSTNode* BST<dataType>::succesor(BST<dataType>::BSTNode 
 }
 
 template <typename dataType>
-typename BST<dataType>::BSTNode* BST<dataType>::predecessor(BST<dataType>::BSTNode *root) const{
-  BSTNode *aux = root;
+typename SplayT<dataType>::STNode* SplayT<dataType>::predecessor(SplayT<dataType>::STNode *root) const{
+  STNode *aux = root;
   if(aux == nullptr) return aux;
 
   else{
@@ -47,7 +48,7 @@ typename BST<dataType>::BSTNode* BST<dataType>::predecessor(BST<dataType>::BSTNo
 }
 
 template <typename dataType>
-void BST<dataType>::remove(BST<dataType>::BSTNode* &root, dataType key){
+void SplayT<dataType>::remove(SplayT<dataType>::STNode* &root, dataType key){
   if(root==nullptr) return root;
   else if(key < root -> key) root -> left = remove(root -> left, key);
   else if(key > root -> key) root -> right = remove(root -> right, key);
@@ -60,17 +61,17 @@ void BST<dataType>::remove(BST<dataType>::BSTNode* &root, dataType key){
     }
 
     else if(root -> left == nullptr){
-      BSTNode *aux = root;
+      STNode *aux = root;
       root = root -> right;
       delete aux;
     }
     else if(root -> right == nullptr){
-      BSTNode *aux = root;
+      STNode *aux = root;
       root = root -> left;
       delete aux;
     }
     else{
-      BSTNode *aux = min(root -> right);
+      STNode *aux = min(root -> right);
       root -> key = aux -> key;
       root -> right = remove(root -> right,aux->key);
     }
@@ -84,56 +85,92 @@ void BST<dataType>::display(BST<dataType>::BSTNode* root, std::ostream &out) con
 
 }*/
 template <typename dataType>
-void BST<dataType>::insert(BST<dataType>::BSTNode* & root, dataType key){
-	if(root==nullptr) return newBSTNode(key);
+void SplayT<dataType>::insert(SplayT<dataType>::STNode* & root, dataType key){
+	if(root==nullptr) return newSTNode(key);
 
   else if(key < root -> key) root -> left = insert(root -> left, key);
   else if(key > root -> key) root -> right = insert(root -> right, key);
 }
 
 template <typename dataType>
-typename BST<dataType>::BSTNode* find(BST<dataType>::BSTNode* root, dataType key){
+typename SplayT<dataType>::STNode* find(SplayT<dataType>::STNode* root, dataType key){
   if(root==nullptr) return nullptr;
   else{
     if(key==root -> key) return root;
     else if(key<root->key) return find(root -> left, key);
     else return find(root -> right, key);
-      
+
   }
 
 }
 template <typename dataType>
-BST<dataType>::BST(){
+SplayT<dataType>::ST(){
   root = nullptr;
   count = 0;
 }
 
 /*template <typename dataType>
-BST<dataType>::~BST(){
+SplayT<dataType>::~ST(){
   clear();
 }*/
 template <typename dataType>
-void BST<dataType>::remove(dataType key){
+void SplayT<dataType>::remove(dataType key){
   remove(root,key);
 }
+
 template <typename dataType>
-bool BST<dataType>::empty(void) const{
+bool SplayT<dataType>::empty(void) const{
   return count == 0;
 }
 
 template <typename dataType>
-bool BST<dataType>::find(dataType key) const{
+bool SplayT<dataType>::find(dataType key) const{
   if(find(root, key)==nullptr) return false;
   else return true;
 }
+
 template <typename dataType>
-void BST<dataType>::insert(dataType key){
+void SplayT<dataType>::insert(dataType key){
   insert(root, key);
   count ++;
 }
+
 /*template <typename dataType>
-void BST<dataType>::display(std::ostream &out) const{
+void SplayT<dataType>::display(std::ostream &out) const{
 
 }*/
+template <typename dataType>
+SplayT<dataType>::STNode * zizi_rotation(STNode *parent){
+  STNode *temp;
+  temp = parent -> left;
+  parent -> left = temp -> right;
+  temp -> right = parent;
+  return temp;
+}
+
+template <typename dataType>
+SplayT<dataType>::STNode * zaza_rotation(STNode *parent){
+  STNode *temp;
+  temp = parent -> right;
+  parent -> right = temp -> left;
+  temp -> left = parent;
+  return temp;
+}
+
+template <typename dataType>
+SplayT<dataType>::STNode * zazi_rotation(STNode *parent){
+  STNode *temp;
+  temp = parent -> left;
+  parent -> left = zizi_rotation(temp);
+  return zaza_rotation(parent);
+}
+
+template <typename dataType>
+SplayT<dataType>::STNode * ziza_rotation(STNode *parent){
+  STNode *temp;
+  temp = parent -> right;
+  parent -> right = zaza_rotation(temp);
+  return zizi_rotation(parent);
+}
 
 #endif //_Primera_hpp_
