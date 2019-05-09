@@ -1,5 +1,5 @@
-#ifndef _Primera_hpp_
-#define _Primera_hpp_
+#ifndef _Splay_Trees_
+#define _Splay_Trees
 template <typename dataType>
 class SplayT {
 	private:
@@ -42,5 +42,5 @@ class SplayT {
 		void display(std::ostream &out = std::cout) const;
 };
 #include "Splay_T.cpp"
-#endif //_Primera_hpp_
+#endif //_Splay_Trees_
 //the way to do the insertion of elements was obtained at GeeksforGeeks
