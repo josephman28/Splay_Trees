@@ -1,4 +1,4 @@
-#ifdef _Primera_hpp_
+#ifdef _SplayT_hpp_
 
 template <typename dataType>
 typename SplayT<dataType>::STNode* SplayT<dataType>::min(SplayT<dataType>::STNode *root) const{
