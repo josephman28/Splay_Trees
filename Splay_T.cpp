@@ -1,4 +1,4 @@
-#ifdef _SplayT_hpp_
+#ifdef _Splay_Trees_
 
 template <typename dataType>
 typename SplayT<dataType>::STNode* SplayT<dataType>::min(SplayT<dataType>::STNode *root) const{
@@ -284,4 +284,4 @@ template <typename dataType>
 size_t SplayT<dataType>::size(void) const{
   return count;
 }
-#endif //_Primera_hpp_
+#endif //_Splay_Trees_
