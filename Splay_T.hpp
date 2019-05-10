@@ -1,10 +1,10 @@
 #ifndef _Splay_Trees_
-#define _Splay_Trees
+#define _Splay_Trees_
 template <typename dataType>
 class SplayT {
 	private:
 		struct STNode {
-			datatype key;
+			dataType key;
 			STNode *left;
 			STNode *right;
 			STNode *parent;
@@ -19,28 +19,28 @@ class SplayT {
 		STNode * predecessor(STNode *root) const;
 
 		void remove(STNode * &root, dataType key);
-		void display(STNode *root, std::ostream & out, size_t times) const;
-		void insert(STNode * &root, dataType key, SplayT<dataType>::STNode *parent = nullptr);
-		STNode * find(STNode *root, dataType key) const;
-
+		void insert(STNode * &root, dataType key, STNode *parent = nullptr);
+		STNode * find(STNode *root, dataType key);
+		void print2D(STNode  * root, size_t space);
+		void zig_rotation(STNode * &root);
+    void zag_rotation(STNode * &root);
 
 	public:
-		ST();
-		//ST(const ST & rhs);
-		//~ST();
-		STNode * zig_rotation(STNode *);
-		STNode * zag_rotation(STNode *);
-		STNode * zizi_rotation(STNode *);
-		STNode * zaza_rotation(STNode *);
-		STNode * zazi_rotation(STNode *);
-		STNode * ziza_rotation(STNode *);
+		SplayT();
+		//SplayT(const ST & rhs);
+		//~SplayT();
+		STNode * zizi_rotation(STNode *parent);
+		STNode * zaza_rotation(STNode *parent);
+		STNode * zazi_rotation(STNode *parent);
+		STNode * ziza_rotation(STNode *parent);
 		void remove(dataType key);
 		bool empty(void) const;
 		size_t size(void) const;
-		bool find(dataType key) const;
+		bool find(dataType key);
 		void insert(dataType key);
-		void display(std::ostream &out = std::cout) const;
+		void debug();
 };
 #include "Splay_T.cpp"
 #endif //_Splay_Trees_
-//the way to do the insertion of elements was obtained at GeeksforGeeks
+
+//The way of displaying the tree was obtained from GeeksforGeeks
