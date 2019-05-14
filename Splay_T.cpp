@@ -82,25 +82,31 @@ void SplayT<dataType>::remove(SplayT<dataType>::STNode* &root, dataType key){
 }
 
 template <typename dataType>
-void SplayT<dataType>::insert(SplayT<dataType>::STNode* & root, dataType key, SplayT<dataType>::STNode *parent){
+typename SplayT<dataType>::STNode * SplayT<dataType>::insert(SplayT<dataType>::STNode* & root, dataType key, SplayT<dataType>::STNode *parent){
 	if(root==nullptr){
     root = new STNode;
     root -> key = key;
-    root -> parent = parent;
+    root  -> parent = parent;
     root -> left = nullptr;
     root -> right = nullptr;
+
   }
 
   else if(key < root -> key) {
     insert(root -> left, key, root);
+
   }
 
   else if(key > root -> key) {
     insert(root -> right, key, root);
+
   }
   else{
     std::cout << key << " is already in the tree" << std::endl;
   }
+  //cur_nod = root;
+  //std::cout << cur_nod -> key << std::endl;
+  return cur_nod = root;
 }
 
 template <typename dataType>
@@ -112,6 +118,7 @@ typename SplayT<dataType>::STNode* SplayT<dataType>::find(SplayT<dataType>::STNo
     else return find(root -> right, key);
 
   }
+  cur_nod = root;
 
 }
 template <typename dataType>
@@ -137,48 +144,47 @@ bool SplayT<dataType>::empty(void) const{
 template <typename dataType>
 bool SplayT<dataType>::find(dataType key){
   if(find(root, key)==nullptr) return false;
-  else return true;
+  else{
+    splaying(cur_nod);
+    return true;
+  }
 }
 
 template <typename dataType>
 void SplayT<dataType>::insert(dataType key){
   insert(root, key);
+  //splaying(cur_nod);
   count ++;
 }
 
 
 template <typename dataType>
-typename SplayT<dataType>::STNode * SplayT<dataType>::zizi_rotation(SplayT<dataType>::STNode *parent){
-  STNode *temp;
-  temp = parent -> left;
-  parent -> left = temp -> right;
-  temp -> right = parent;
-  return temp;
+void SplayT<dataType>::zigzig_rotation(SplayT<dataType>::STNode *&root){
+  zig_rotation(root);
+  zig_rotation(root);
 }
 
 template <typename dataType>
-typename SplayT<dataType>::STNode * SplayT<dataType>::zaza_rotation(SplayT<dataType>::STNode *parent){
-  STNode *temp;
-  temp = parent -> right;
-  parent -> right = temp -> left;
-  temp -> left = parent;
-  return temp;
+void SplayT<dataType>::zagzag_rotation(SplayT<dataType>::STNode *&root){
+  zag_rotation(root);
+  zag_rotation(root);
 }
-
+//Hijo derecho de uno izquierdo
 template <typename dataType>
-typename SplayT<dataType>::STNode * SplayT<dataType>::zazi_rotation(SplayT<dataType>::STNode *parent){
-  STNode *temp;
-  temp = parent -> left;
-  parent -> left = zizi_rotation(temp);
-  return zaza_rotation(parent);
+void SplayT<dataType>::zagzig_rotation(SplayT<dataType>::STNode *&root){
+  zag_rotation(root -> left);
+  zig_rotation(root);
 }
-
+//Hijo izquierdo de uno derecho
 template <typename dataType>
-typename SplayT<dataType>::STNode * SplayT<dataType>::ziza_rotation(SplayT<dataType>::STNode *parent){
-  STNode *temp;
-  temp = parent -> right;
-  parent -> right = zaza_rotation(temp);
-  return zizi_rotation(parent);
+void SplayT<dataType>::zigzag_rotation(SplayT<dataType>::STNode *&root){
+  //STNode *temp
+  //gra_pa = root;
+  //temp = root -> right -> left;
+  zig_rotation(root -> right);
+  zag_rotation(root);
+//  root -> right = zaza_rotation(temp);
+
 }
 template<typename dataType>
 void SplayT<dataType>::zig_rotation(STNode * &root){
@@ -224,9 +230,32 @@ void SplayT<dataType>::print2D(SplayT<dataType>::STNode  * root, size_t space){
 
 template<typename dataType>
 void SplayT<dataType>::debug(){
-  zig_rotation(root);
-	zag_rotation(root);
   print2D(root, 0);
+  std:: cout << "---------------------" << std::endl;
+  splaying(root->left);
+  // zig_rotation(root);
+	// zag_rotation(root);
+  //std::cout << root -> left -> parent ->  key << std::endl;
+  print2D(root, 0);
+}
+
+
+template<typename dataType>
+void SplayT<dataType>::splaying(SplayT<dataType>::STNode *&root){
+  // while (root -> parent != nullptr) {
+  //   if(root == root -> parent -> left){
+  //     zig_rotation(root -> parent);
+  //
+  //   }
+  //   else if(root == root -> parent -> right){
+  //     zag_rotation(root -> parent);
+  //
+  //   }
+  //   //splaying(root -> parent);
+  //   break;
+  // }
+  if(root->parent==nullptr) std::cout << "Paila";
+  else std::cout << root -> parent -> key;
 }
 
 #endif //_Splay_Trees_

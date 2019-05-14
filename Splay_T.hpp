@@ -8,10 +8,13 @@ class SplayT {
 			STNode *left;
 			STNode *right;
 			STNode *parent;
+			STNode *gra_pa;
+
 		};
 
 		size_t count;
 		STNode *root;
+		STNode *cur_nod;
 
 		STNode * min(STNode *root) const;
 		STNode * max(STNode *root) const;
@@ -19,25 +22,27 @@ class SplayT {
 		STNode * predecessor(STNode *root) const;
 
 		void remove(STNode * &root, dataType key);
-		void insert(STNode * &root, dataType key, STNode *parent = nullptr);
+		STNode * insert(STNode * &root, dataType key, STNode *parent = nullptr);
 		STNode * find(STNode *root, dataType key);
 		void print2D(STNode  * root, size_t space);
 		void zig_rotation(STNode * &root);
     void zag_rotation(STNode * &root);
+		void zigzig_rotation(STNode *&root);
+		void zagzag_rotation(STNode *&root);
+		void zagzig_rotation(STNode *&root);
+		void zigzag_rotation(STNode *&root);
+		void splaying(STNode *&root);
 
 	public:
 		SplayT();
 		//SplayT(const ST & rhs);
 		//~SplayT();
-		STNode * zizi_rotation(STNode *parent);
-		STNode * zaza_rotation(STNode *parent);
-		STNode * zazi_rotation(STNode *parent);
-		STNode * ziza_rotation(STNode *parent);
 		void remove(dataType key);
 		bool empty(void) const;
 		size_t size(void) const;
 		bool find(dataType key);
 		void insert(dataType key);
+
 		void debug();
 };
 #include "Splay_T.cpp"

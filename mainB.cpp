@@ -25,11 +25,12 @@ int main() {
   // cout << "Empty: "<<boolalpha<<mytree.empty()<<endl;
 	mytree.insert(10);
 	mytree.insert(8);
-	mytree.insert(7);
-  mytree.insert(9);
-  mytree.insert(13);
-  mytree.insert(12);
-  mytree.insert(15);
+	// mytree.insert(7);
+  // mytree.insert(9);
+  // mytree.insert(13);
+  // mytree.insert(12);
+  // mytree.insert(15);
+
 
   mytree.debug();
   return 0;
