@@ -48,34 +48,61 @@ typename SplayT<dataType>::STNode* SplayT<dataType>::predecessor(SplayT<dataType
 }
 
 template <typename dataType>
-void SplayT<dataType>::remove(SplayT<dataType>::STNode* &root, dataType key/*, SplayT<dataType>::STNode *ultimate*/){
-  if(root==nullptr) std::cout << key <<" is not in the tree"<< std::endl;
-  else if(key < root -> key) remove(root -> left, key);
-  else if(key > root -> key) remove(root -> right, key);
+typename SplayT<dataType>::STNode * SplayT<dataType>::remove(SplayT<dataType>::STNode* &root, dataType key, SplayT<dataType>::STNode *ultimate){
+  if(root==nullptr) {
+    std::cout << key <<" is not in the tree"<< std::endl;
+    return ultimate;
 
+  }
+  else if(key < root -> key) {
+    return remove(root -> left, key, root);
+
+  }
+  else if(key > root -> key){
+    return remove(root -> right, key, root);
+
+  }
   else{
     if(root -> left == nullptr && root -> right == nullptr){
+      root -> parent = ultimate;
+      if(root -> parent -> left == root){
+        root -> parent -> left = nullptr;
+      }
+      else{
+        root -> parent -> right = nullptr;
+      }
       delete root;
-      root= nullptr;
+      return ultimate;
     }
 
     else if(root -> left == nullptr){
       STNode *aux = root;
+      root -> right -> parent = root -> parent;
       root = root -> right;
       delete aux;
+      return root;
+
     }
+
     else if(root -> right == nullptr){
       STNode *aux = root;
+      root -> left -> parent = root -> parent;
       root = root -> left;
       delete aux;
+      return root;
+
     }
+
     else{
       STNode *aux = min(root -> right);
       root -> key = aux -> key;
-      remove(root -> right,aux->key);
+      remove(root -> right,aux->key, root);
       count ++;
+      return root;
     }
+
     count --;
+
   }
 
 }
@@ -88,11 +115,8 @@ typename SplayT<dataType>::STNode * SplayT<dataType>::insert(SplayT<dataType>::S
     root  -> parent = parent;
     root -> left = nullptr;
     root -> right = nullptr;
-    root->print(std::cout, "ESTE");
-    std::cout << std::endl;
     return root;
-    //splaying(root);
-    //root = root;
+
   }
 
   else if(key < root -> key) {
@@ -101,9 +125,11 @@ typename SplayT<dataType>::STNode * SplayT<dataType>::insert(SplayT<dataType>::S
   }
 
   else if(key > root -> key) {
+
     return insert(root -> right, key, root);
 
   }
+
   else{
     std::cout << key << " is already in the tree" << std::endl;
     return root;
@@ -125,26 +151,46 @@ typename SplayT<dataType>::STNode* SplayT<dataType>::find(SplayT<dataType>::STNo
       return find(root -> right, key, root);
     }
   }
-
 }
+template <typename dataType>
+void SplayT<dataType>::clear(SplayT<dataType>::STNode * root){
+  if(root!=nullptr){
+    STNode * aux1 = root -> left;
+    STNode * aux2 = root -> right;
+    delete root;
+    clear(aux1);
+    clear(aux2);
+  }
+}
+
 template <typename dataType>
 SplayT<dataType>::SplayT(){
   root = nullptr;
   count = 0;
 }
 
-/*template <typename dataType>
+template <typename dataType>
 SplayT<dataType>::~SplayT(){
   clear();
-}*/
+}
 template <typename dataType>
 void SplayT<dataType>::remove(dataType key){
-  remove(root,key);
+  auto nodo = remove(root,key);
+  splaying(nodo);
+  root = nodo;
+
 }
 
 template <typename dataType>
 bool SplayT<dataType>::empty(void) const{
   return count == 0;
+}
+
+template <typename dataType>
+void SplayT<dataType>::clear(void){
+  clear(root);
+  root = nullptr;
+  count = 0;
 }
 
 template <typename dataType>
@@ -175,10 +221,8 @@ void SplayT<dataType>::insert(dataType key){
   auto n_nod = insert(root, key);
   splaying(n_nod);
   root = n_nod;
-
   count ++;
 }
-
 
 template <typename dataType>
 void SplayT<dataType>::zigzig_rotation(SplayT<dataType>::STNode *&root){
@@ -202,9 +246,7 @@ template <typename dataType>
 void SplayT<dataType>::zigzag_rotation(SplayT<dataType>::STNode *&root){
 
   zig_rotation(root -> right);
-
   zag_rotation(root);
-
 
 }
 template<typename dataType>
@@ -273,11 +315,9 @@ void SplayT<dataType>::print2D(SplayT<dataType>::STNode  * root, size_t space){
 template<typename dataType>
 void SplayT<dataType>::debug(){
   print2D(root, 0);
-  std::cout << "---------------------" << std::endl;
-
-  root->print(std::cout, "root");
   std::cout << std::endl;
-  //print2D(root, 0);
+  std::cout << "-------------------------------------------------------------------------------------------------------------" << std::endl;
+
 }
 
 template<typename dataType>
@@ -294,7 +334,7 @@ void SplayT<dataType>::splaying(SplayT<dataType>::STNode *&root){
       zig_rotation(n_nod);
       root = n_nod;
     }
-    else {// if(root -> key < root -> right -> key) {
+    else {
       auto n_nod = root -> parent;
 			zag_rotation(n_nod);
       root = n_nod;

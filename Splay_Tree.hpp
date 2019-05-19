@@ -31,9 +31,10 @@ class SplayT {
 		STNode * succesor(STNode *root) const;
 		STNode * predecessor(STNode *root) const;
 
-		void remove(STNode * &root, dataType key);
+		STNode * remove(STNode * &root, dataType key, STNode *ultimate = nullptr);
 		STNode * insert(STNode * &root, dataType key, STNode *parent = nullptr);
 		STNode * find(STNode *&root, dataType key, STNode *ultimate = nullptr);
+		void clear(STNode *root);
 		void print2D(STNode  * root, size_t space);
 		void zig_rotation(STNode * &root);
     void zag_rotation(STNode * &root);
@@ -45,13 +46,13 @@ class SplayT {
 
 	public:
 		SplayT();
-		//~SplayT();
+		~SplayT();
 		void remove(dataType key);
 		bool empty(void) const;
 		size_t size(void) const;
 		bool find(dataType key);
 		void insert(dataType key);
-
+		void clear(void);
 		void debug();
 };
 #include "Splay_Tree.cpp"
