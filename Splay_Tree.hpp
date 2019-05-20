@@ -1,6 +1,6 @@
 #ifndef _Splay_Trees_
 #define _Splay_Trees_
-
+#include <cassert>
 #include <string>
 
 //Class that recrates the ADT Splay Tree
@@ -121,6 +121,10 @@ class SplayT {
 		*root: pointer to the node we want to splay
 		*/
 		void splaying(STNode *&root);
+		/*
+		*Method that ckecks splay tree properties
+		*/
+		void checkrep() const;
 
 	public:
 		/*
