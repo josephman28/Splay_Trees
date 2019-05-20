@@ -139,7 +139,10 @@ typename SplayT<dataType>::STNode * SplayT<dataType>::insert(SplayT<dataType>::S
 
 template <typename dataType>
 typename SplayT<dataType>::STNode* SplayT<dataType>::find(SplayT<dataType>::STNode *&root, dataType key, SplayT<dataType>::STNode * ultimate){
-  if(root==nullptr) return ultimate;
+  if(root==nullptr){
+    std::cout << key <<" Is not in the tree" << std::endl;
+    return ultimate;
+  }
   else{
     if(key==root -> key) {
       return root;
@@ -195,8 +198,7 @@ void SplayT<dataType>::clear(void){
 
 template <typename dataType>
 bool SplayT<dataType>::find(dataType key){
-  auto node = find(root, key);
-
+  auto node = find(root, key, ultimate);
   if(node!=nullptr) {
     splaying(node);
     root = node;
