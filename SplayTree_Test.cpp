@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-
+	cout << boolalpha;
 	SplayT<int> mytree;
 	mytree.insert(10);
 	mytree.debug();
@@ -30,9 +30,9 @@ int main() {
 	mytree.debug();
 	mytree.insert(16);
 	mytree.debug();
-	mytree.find(6);
+	cout << mytree.find(6)<< endl;
   mytree.debug();
-	mytree.find(16);
+	cout << mytree.find(16)<< endl;
 	mytree.debug();
 	mytree.remove(11);
 	mytree.debug();
